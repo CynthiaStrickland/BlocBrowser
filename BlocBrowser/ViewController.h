@@ -10,7 +10,7 @@
 
 @interface ViewController : UIViewController
 
-//replaces the web view with a fresh one, reasing all history and updates field and toolbar buttons appropriately.
+//replaces the web view with a fresh one, erasing all history and updates field and toolbar buttons appropriately.
 
 - (void) resetWebView;
 

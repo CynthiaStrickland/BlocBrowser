@@ -118,9 +118,12 @@
     // First, calculate some dimensions.
     static const CGFloat itemHeight = 50;
     CGFloat width = CGRectGetWidth(self.view.bounds);
+    
     //CGFloat browserHeight = CGRectGetHeight(self.view.bounds) - itemHeight;
+    
     CGFloat browserHeight = CGRectGetHeight(self.view.bounds) - itemHeight - itemHeight;
     CGFloat buttonWidth = CGRectGetWidth(self.view.bounds) / 4;
+    
     // Now, assign the frames
     
     self.textField.frame = CGRectMake(0, 0, width, itemHeight);
@@ -142,16 +145,17 @@
     
     NSURL *URL = [NSURL URLWithString:URLString];
     
-    if (!URL.scheme) {
+        if (!URL.scheme) {
         // The user didn't type http: or https:
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", URLString]];
     }
-   
-    NSRange urlSpace = [URLString rangeOfString:@" "];
-    NSString *urlNoSpace = [URLString stringByReplacingCharactersInRange:urlSpace withString:@"+"];
     
     // The user typed a space so we assume it's a search engine query
+    NSRange urlSpace = [URLString rangeOfString:@" "];
+    NSString *urlNoSpace = [URLString stringByReplacingCharactersInRange:urlSpace withString:@"+"
+                            ];
     
+
     if (urlSpace.location != NSNotFound) {
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", urlNoSpace]];
     }
@@ -177,6 +181,17 @@
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
 {
     if (error.code != NSURLErrorCancelled) {
+        
+        //DISPLAY WELCOME *****************
+        
+//        UIAlertView *welcome = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome!", @"Welcome title")
+//                                                        message:NSLocalizedString(@"Get excited to use the best web browser ever!", @"Welcome comment")
+//                                                       delegate:nil
+//                                              cancelButtonTitle:NSLocalizedString(@"OK, I'm excited!", @"Welcome button title") otherButtonTitles:nil];
+//        [welcome show];
+//        
+        //******************   Nothing is showing up !
+        
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", @"Error")
                                                                        message:[error localizedDescription]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
