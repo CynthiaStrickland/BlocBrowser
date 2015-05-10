@@ -10,7 +10,6 @@
 		3D948FBE1AFC84D900A80D1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D948FBD1AFC84D900A80D1C /* main.m */; };
 		3D948FC11AFC84DA00A80D1C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D948FC01AFC84DA00A80D1C /* AppDelegate.m */; };
 		3D948FC41AFC84DA00A80D1C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D948FC31AFC84DA00A80D1C /* ViewController.m */; };
-		3D948FC71AFC84DA00A80D1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D948FC51AFC84DA00A80D1C /* Main.storyboard */; };
 		3D948FC91AFC84DA00A80D1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D948FC81AFC84DA00A80D1C /* Images.xcassets */; };
 		3D948FCC1AFC84DA00A80D1C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D948FCA1AFC84DA00A80D1C /* LaunchScreen.xib */; };
 		3D948FD81AFC84DA00A80D1C /* BlocBrowserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D948FD71AFC84DA00A80D1C /* BlocBrowserTests.m */; };
@@ -34,7 +33,6 @@
 		3D948FC01AFC84DA00A80D1C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3D948FC21AFC84DA00A80D1C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		3D948FC31AFC84DA00A80D1C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		3D948FC61AFC84DA00A80D1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3D948FC81AFC84DA00A80D1C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3D948FCB1AFC84DA00A80D1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3D948FD11AFC84DA00A80D1C /* BlocBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,7 +83,6 @@
 				3D948FC01AFC84DA00A80D1C /* AppDelegate.m */,
 				3D948FC21AFC84DA00A80D1C /* ViewController.h */,
 				3D948FC31AFC84DA00A80D1C /* ViewController.m */,
-				3D948FC51AFC84DA00A80D1C /* Main.storyboard */,
 				3D948FC81AFC84DA00A80D1C /* Images.xcassets */,
 				3D948FCA1AFC84DA00A80D1C /* LaunchScreen.xib */,
 				3D948FBB1AFC84D900A80D1C /* Supporting Files */,
@@ -199,7 +196,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D948FC71AFC84DA00A80D1C /* Main.storyboard in Resources */,
 				3D948FCC1AFC84DA00A80D1C /* LaunchScreen.xib in Resources */,
 				3D948FC91AFC84DA00A80D1C /* Images.xcassets in Resources */,
 			);
@@ -244,14 +240,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3D948FC51AFC84DA00A80D1C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3D948FC61AFC84DA00A80D1C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3D948FCA1AFC84DA00A80D1C /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -346,6 +334,7 @@
 				INFOPLIST_FILE = BlocBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -356,6 +345,7 @@
 				INFOPLIST_FILE = BlocBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
