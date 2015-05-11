@@ -20,12 +20,9 @@
 
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UITextField *textField;
-//@property (nonatomic, strong) UIButton *backButton;
-//@property (nonatomic, strong) UIButton *forwardButton;
-//@property (nonatomic, strong) UIButton *stopButton;
-//@property (nonatomic, strong) UIButton *reloadButton;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) AwesomeFloatingToolbar *awesomeToolbar;
+@property (nonatomic,assign) NSUInteger frameCount;
 
 @end
 
@@ -122,6 +119,18 @@
         }
     }
 
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset {
+    CGPoint startingPoint = toolbar.frame.origin;
+    CGPoint newPoint = CGPointMake(startingPoint.x + offset.x, startingPoint.y + offset.y);
+    
+    CGRect potentialNewFrame = CGRectMake(newPoint.x, newPoint.y, CGRectGetWidth(toolbar.frame), CGRectGetHeight(toolbar.frame));
+    
+    if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+            toolbar.frame = potentialNewFrame;
+        }
+    }
+
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     
@@ -134,18 +143,17 @@
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", URLString]];
     }
     
-    // The user typed a space so we assume it's a search engine query *********************
-    // THIS IS WHERE THE ERROR IS OCCURING.  NSRangeException NSCFString replaceCharactersInRanger:withString:   Range or index out of bounds
+// The user typed a space so we assume it's a search engine query *********************
+// THIS IS WHERE THE ERROR IS OCCURING.  NSRangeException NSCFString replaceCharactersInRanger:withString:   Range or index out of bounds
     
     NSRange urlSpace = [URLString rangeOfString:@" "];
     NSString *urlNoSpace = [URLString stringByReplacingCharactersInRange:urlSpace withString:@"+"];
-    
     
     if (urlSpace.location != NSNotFound) {
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", urlNoSpace]];
     }
     
-    //***************************************
+  //  ***************************************
     if (URL) {
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
         [self.webView loadRequest:request];
