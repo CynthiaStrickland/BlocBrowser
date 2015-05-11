@@ -145,21 +145,23 @@
     
     NSURL *URL = [NSURL URLWithString:URLString];
     
-        if (!URL.scheme) {
+    if (!URL.scheme) {
         // The user didn't type http: or https:
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", URLString]];
     }
     
-    // The user typed a space so we assume it's a search engine query
+    // The user typed a space so we assume it's a search engine query *********************
+    // THIS IS WHERE THE ERROR IS OCCURING.  NSRangeException NSCFString replaceCharactersInRanger:withString:   Range or index out of bounds
+    
     NSRange urlSpace = [URLString rangeOfString:@" "];
-    NSString *urlNoSpace = [URLString stringByReplacingCharactersInRange:urlSpace withString:@"+"
-                            ];
+    NSString *urlNoSpace = [URLString stringByReplacingCharactersInRange:urlSpace withString:@"+"];
     
 
     if (urlSpace.location != NSNotFound) {
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", urlNoSpace]];
     }
     
+    //***************************************
     if (URL) {
             NSURLRequest *request = [NSURLRequest requestWithURL:URL];
             [self.webView loadRequest:request];
@@ -184,12 +186,12 @@
         
         //DISPLAY WELCOME *****************
         
-//        UIAlertView *welcome = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome!", @"Welcome title")
-//                                                        message:NSLocalizedString(@"Get excited to use the best web browser ever!", @"Welcome comment")
-//                                                       delegate:nil
-//                                              cancelButtonTitle:NSLocalizedString(@"OK, I'm excited!", @"Welcome button title") otherButtonTitles:nil];
-//        [welcome show];
-//        
+        UIAlertView *welcome = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome!", @"Welcome title")
+                                                        message:NSLocalizedString(@"Get excited to use the best web browser ever!", @"Welcome comment")
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK, I'm excited!", @"Welcome button title") otherButtonTitles:nil];
+        [welcome show];
+
         //******************   Nothing is showing up !
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", @"Error")
