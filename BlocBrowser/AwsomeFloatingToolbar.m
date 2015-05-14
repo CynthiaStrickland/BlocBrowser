@@ -35,7 +35,7 @@
             // Save the titles, and set the 4 colors
             self.currentTitles = titles;
             self.colors = @[
-                    [UIColor colorWithRed:199/255.0 green:158/255.0 blue:203/255.0 alpha:1],
+                    [UIColor colorWithRed:199/255.0 green:158/255.0 blue:103/255.0 alpha:1],
                     [UIColor colorWithRed:255/255.0 green:105/255.0 blue:97/255.0 alpha:1],
                     [UIColor colorWithRed:222/255.0 green:165/255.0 blue:164/255.0 alpha:1],
                     [UIColor colorWithRed:255/255.0 green:179/255.0 blue:71/255.0 alpha:1]];
@@ -52,9 +52,10 @@
                     NSString *titleForThisButton = [self.currentTitles objectAtIndex:currentTitleIndex];
                     UIColor *colorForThisButton= [self.colors objectAtIndex:currentTitleIndex];
         
-                    //button.textAlignment = NSTextAlignmentCenter;
-                    button.font = [UIFont systemFontOfSize:10];
-                    //button.text = titleForThisLabel;
+                    //button.titleLabel.TextAlignment = UITextAlignmentCenter;
+                    button.titleLabel.font = [UIFont systemFontOfSize: 10];
+                [button setTitle:titleForThisButton forState:UIControlStateNormal];
+                    button.titleLabel.text = titleForThisButton;
                     button.backgroundColor = colorForThisButton;
                     button.tintColor = [UIColor whiteColor];
         
@@ -85,34 +86,34 @@
 }
 
 #pragma mark - Tap Gesture
-
-- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset {
-    CGPoint startingPoint = toolbar.frame.origin;
-    CGPoint newPoint = CGPointMake(startingPoint.x + offset.x, startingPoint.y + offset.y);
-    
-    CGRect potentialNewFrame = CGRectMake(newPoint.x, newPoint.y, CGRectGetWidth(toolbar.frame), CGRectGetHeight(toolbar.frame));
-    
-        if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
-        toolbar.frame = potentialNewFrame;
-    }
-}
+//
+//- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset {
+//    CGPoint startingPoint = toolbar.frame.origin;
+//    CGPoint newPoint = CGPointMake(startingPoint.x + offset.x, startingPoint.y + offset.y);
+//    
+//    CGRect potentialNewFrame = CGRectMake(newPoint.x, newPoint.y, CGRectGetWidth(toolbar.frame), CGRectGetHeight(toolbar.frame));
+//    
+//        if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+//        toolbar.frame = potentialNewFrame;
+//    }
+//}
 // ******** PINCH *********
 - (void) pinchFired:(UIPinchGestureRecognizer *)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
+    //if (recognizer.state == UIGestureRecognizerStateEnded) {
         CGFloat scale = [recognizer scale];
         NSLog(@"pinched: %f", scale);
         
         if ([self.delegate respondsToSelector:@selector(floatingToolbar:didPinchWithScale:)]) {
-            [self.delegate floatingToolbar:self didPinchWithScale:scale];
-        }
+            [self.delegate floatingToolbar:self didPinchWithScale:recognizer];
+
+    
     }
 }
 // ********  LONG PRESS *********
 - (void)longPress:(UILongPressGestureRecognizer*)gesture {
     if ( gesture.state == UIGestureRecognizerStateEnded ) {
             NSLog(@"Long Press");
-        [self.button addGestureRecognizer:longPress];
-        [longPress release];
+//        [self.button addGestureRecognizer:longPress];
     }
 }
     
@@ -122,11 +123,11 @@
                 CGPoint location = [recognizer locationInView:self];
                 UIView *tappedView = [self hitTest:location withEvent:nil];
         
-                if ([self.labels containsObject:tappedView]) {
-                if ([self.delegate respondsToSelector:@selector(floatingToolbar:didSelectButtonWithTitle:)]) {
-                            [self.delegate floatingToolbar:self didSelectButtonWithTitle:((UILabel *)tappedView).text];
-                            }
-                    }
+//                if ([self.labels containsObject:tappedView]) {
+//                if ([self.delegate respondsToSelector:@selector(floatingToolbar:didSelectButtonWithTitle:)]) {
+//                            [self.delegate floatingToolbar:self didSelectButtonWithTitle:((UILabel *)tappedView).text];
+//                            }
+//                    }
             }
     }
 // ********* PAN FIRED ********
@@ -147,8 +148,8 @@
 - (void) layoutSubviews {
     // set the frames for the 4 labels
     
-    for (UILabel *thisLabel in self.labels) {
-            NSUInteger currentLabelIndex = [self.labels indexOfObject:thisLabel];
+    for (UIButton *thisButton in self.buttons)  {
+            NSUInteger currentLabelIndex = [self.buttons indexOfObject:thisButton];
     
             CGFloat labelHeight = CGRectGetHeight(self.bounds) / 2;
             CGFloat labelWidth = CGRectGetWidth(self.bounds) / 2;
@@ -172,7 +173,7 @@
                     labelX = CGRectGetWidth(self.bounds) / 2;
             }
         
-            thisLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
+            thisButton.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
         }
 }
 
@@ -182,7 +183,7 @@
     NSUInteger index = [self.currentTitles indexOfObject:title];
 
     if (index != NSNotFound) {
-        UILabel *label = [self.labels objectAtIndex:index];
+        UILabel *label = [self.buttons objectAtIndex:index];
         label.userInteractionEnabled = enabled;
         label.alpha = enabled ? 1.0 : 0.25;
     }

@@ -130,6 +130,12 @@
         }
     }
 
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didPinchWithScale:(UIPinchGestureRecognizer *)recognizer {
+    
+    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+    recognizer.scale = 1;
+    NSLog(@"finished scale from vc: %f", recognizer.scale);
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -147,9 +153,9 @@
 // THIS IS WHERE THE ERROR IS OCCURING.  NSRangeException NSCFString replaceCharactersInRanger:withString:   Range or index out of bounds
     
     NSRange urlSpace = [URLString rangeOfString:@" "];
-    NSString *urlNoSpace = [URLString stringByReplacingCharactersInRange:urlSpace withString:@"+"];
-    
+   
     if (urlSpace.location != NSNotFound) {
+        NSString *urlNoSpace = [URLString stringByReplacingCharactersInRange:urlSpace withString:@"+"];
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", urlNoSpace]];
     }
     
